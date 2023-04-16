@@ -1,0 +1,222 @@
+
+
+
+    {% extends 'comAdmin/dashboard.html' %}
+
+
+    {% block content %}
+    <style>
+      .warning {
+        border: 10px solid #DDDDDD;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        padding: .5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .warning img {
+        width: 100%;
+    }
+    
+    
+    table tr td{
+      padding: 10px;
+      line-height: 10px;
+    
+    }
+    /* table tr td b{
+      margin-left: 20px;
+    
+    } */
+    
+    
+    body {
+        font-family: "Poppins", sans-serif;
+        color: #444444;
+    }
+    
+    a,
+    a:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .section-products {
+        padding: 30px 0 54px;
+    }
+    
+    .section-products .header {
+        margin-bottom: 50px;
+    }
+    
+    .section-products .header h3 {
+        font-size: 1rem;
+        color: #fe302f;
+        font-weight: 500;
+    }
+    
+    .section-products .header h2 {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: #444444; 
+    }
+    
+    .section-products .single-product {
+        margin-bottom: 26px;
+    }
+    
+    .section-products .single-product .part-1 {
+        position: relative;
+        height: 290px;
+        max-height: 290px;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+    
+    .section-products .single-product .part-1::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 90%;
+            height: 100%;
+            z-index: -1;
+            transition: all 0.3s;
+    }
+    
+    
+    .section-products .single-product .part-1 .discount,
+    .section-products .single-product .part-1 .new {
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        color: #ffffff;
+        background-color: #fe302f;
+        padding: 2px 8px;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+    }
+    
+    .section-products .single-product .part-1 .new {
+        left: 0;
+        background-color: #ffffff;
+    }
+    
+    .section-products .single-product .part-1 ul {
+        position: absolute;
+        bottom: -41px;
+        left: 20px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        opacity: 0;
+        transition: bottom 0.5s, opacity 0.5s;
+    }
+    
+    .section-products .single-product:hover .part-1 ul {
+        bottom: 30px;
+        opacity: 1;
+    }
+    
+    .section-products .single-product .part-1 ul li {
+        display: inline-block;
+        margin-right: 4px;
+    }
+    
+    .section-products .single-product .part-1 ul li a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        background-color: #ffffff;
+        color: #444444;
+        text-align: center;
+        box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+        transition: color 0.2s;
+    }
+    
+    .section-products .single-product .part-1 ul li a:hover {
+        color: #fe302f;
+    }
+    
+    .section-products .single-product .part-2 .product-title {
+        font-size: 1rem;
+    }
+    
+    .section-products .single-product .part-2 h4 {
+        display: inline-block;
+        font-size: 1rem;
+    }
+    
+    .section-products .single-product .part-2 .product-old-price {
+        position: relative;
+        padding: 0 7px;
+        margin-right: 2px;
+        opacity: 0.6;
+    }
+    
+    .section-products .single-product .part-2 .product-old-price::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        left: 0;
+        width: 90%;
+        height: 1px;
+        background-color: #ffffff;
+        transform: translateY(-50%);
+    }
+    .row {
+      margin-right: 90px;
+      margin-left: -37px;
+    }
+    
+    </style>
+    
+    <div id="page-wrapper">
+        <div id="page-inner">
+         
+            <div class="row">
+                <div class="col-md-12">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td><h1 style="padding-left: 20px;">Upload XLSX FILE</h1></td>
+                      <td style="background-color: #DDDDDD;text-align:right;padding-right: 12px;"><a href="/superadmin/get_all_lead/"><button class="btn btn-primary col-md-6">BACK</button></a></td>
+                     
+                    </tr>
+                  </table>
+                  <hr>
+                    <center>
+                  <div style="width: 700px;">
+                    {% if messages %}
+                    <p class="messagelist" style="font-weight: bold;border-radius: 10px;background-color: #ffffff;padding: 10px;font-size: 18px;color: rgb(44, 230, 19);">{% for message in messages %}{{ message }}{% endfor %}</p>
+                    {% endif %}
+                  </div>
+                </center>
+                </div>
+    
+                <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal"> 
+                    {% csrf_token %}
+                    <div class="form-group" style="text-align: justify;">
+                        <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+                        <div class="col-md-8">
+                            <input type="file" name="myfile" id="csv_file" required="True" class="form-control">
+                        </div>                    
+                    </div>
+                    <div class="form-group">                    
+                        <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+                             <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+                        </div> 
+                    </div>
+                    </form>
+            
+               
+            </div>
+            <!-- /. ROW  -->
+            
+    
+            
+        </div>
+        </div>
+    {% endblock content %}

@@ -1,0 +1,235 @@
+{% extends 'comAdmin/dashboard.html' %}
+
+{% block content %}
+<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  * {box-sizing: border-box;}
+  
+  /* Button used to open the contact form - fixed at the bottom of the page */
+  .open-button {
+    background-color: rgb(8, 236, 92);
+    color: #000;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+    font-weight: bold;
+    font-size: 22px;
+  }
+  
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 500px;
+    padding: 10px;
+    background-color: white;
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+  
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color: red;
+  }
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+  
+  .warning {
+    margin: right;
+    border: 1px solid #DDDDDD;
+    /* border-top: none;
+    border-left: none;
+    border-right: none; */
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+
+
+
+table tr td{
+  padding: 6px;
+  width: 60%;
+
+}
+table tr td #bld{
+    font-weight: bold;
+}
+</style>
+<div id="page-wrapper">
+    <div id="page-inner">
+      <form class="form-inline my-2 my-lg-0" style="text-align: center;">
+        <input class="form-control mr-sm-5" name="q" type="search" placeholder="Search by, Lead name, Assigned to, status" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+        <div class="row">
+            <div class="col-md-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td><h1 class="page-head-line"></h1></td>
+                  <td style="background-color: #DDDDDD;text-align:right;padding-right: 12px;">
+                    <!-- call logs create form -->
+                    <button class="open-button btn-success" onclick="openForm()">Create Call Log</button>
+             
+                     </td>
+                  
+                </tr>
+              </table>
+                
+              
+            </div>
+        </div>
+        <!-- /. ROW  -->
+        
+       
+   
+        <div class="warning" style="background-color: #ffffff;padding: 20px;">
+            
+
+          <div style="margin-left: 10px; width: 20%;">
+                
+            <button active class="btn btn" style="width:200px;background-color: #ffffff;;color: #000000;border: 1px solid #e1e1e1;"><b><i class="fa fa-info " style="border: 1px solid #ffffff;border-radius: 100%;padding: 5px;"> </i> &nbsp;Information</b></button><br>
+            <button class="btn btn" style="width:200px;background-color: #2a59e6;border: 1px solid #e1e1e1;color: #ffffff;"><i class="fa fa-phone " style="border-radius: 100%;padding: 5px;"> </i> &nbsp;Call Logs</button><br>
+            <button class="btn " style="width:200px;border: 1px solid #e1e1e1;background-color: #ffffff;"><i class="fa fa-sticky-note " style="border-radius: 100%;padding: 5px;"> </i> &nbsp;Note</button>
+   
+
+  
+        </div>
+
+         <br>
+                 
+         <center> {% for i in iflog%}
+                  <div class="warning" style="background-color: #ffffff;padding: 20px;">
+                   
+                    <table>
+                      <tr>
+                        <td style="padding-left: 20px;">Log Type: &nbsp;&nbsp;&nbsp;<b>{{ i.cls }}</b></td>
+                        
+                        <td style="padding-left: 20px;">Start Call: &nbsp;&nbsp;&nbsp;<b>{{ i.str_dt }}</b></td>
+                      </tr>
+                      <tr>
+                        <td style="padding-left: 20px;">Remarks: &nbsp;&nbsp;&nbsp;<b>{{ i.rem }}</b></td>
+                        <td style="padding-left: 20px;">End Call: &nbsp;&nbsp;&nbsp;<b>{{ i.end_dt.time }}</b></td>
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td style="padding-left: 20px;">Date: &nbsp;&nbsp;&nbsp;<b>{{ i.end_dt.date }}</b></td>
+                      </tr>
+                     
+                    </table>
+
+                    <div style="text-align:right;padding-top: 20px;">
+                      <a href="/superadmin/show_leadinfo/{{ i.led_id_id }}/"><button class="btn btn-warning"><i class="fa fa-arrow-left"></i> Back</button></a>
+                      <a href="{% url 'edit_log' id=i.id %}"><button class="btn btn-primary"><i class="fa fa-edit"></i> Edit Lead</button></a>
+                      <a href="{% url 'delete_log' id=i.id %}"><button class="btn btn-danger"><i class="fa fa-trash"></i> Delete Lead</button> </a>                  
+                    </div>
+                 
+
+                </div>
+                {% endfor %}
+              </center>
+           
+                
+         
+       <!-- <h1>{{datet}}</h1> -->
+
+
+
+       
+          <div class="form-popup" id="myForm">
+            <form method="post" class="form-container">
+              
+              <h1>Add New Log</h1><br>
+              
+              <div>
+                {% if messages %}
+                <p class="messagelist" style="font-weight: bold;border-radius: 10px;background-color: #ffffff;padding: 10px;font-size: 18px;color: rgb(44, 230, 19);">{% for message in messages %}{{ message }}{% endfor %}</p>
+                {% endif %}
+                {% csrf_token %}
+              </div>
+             
+              
+                <label for="exampleInputpro" class="form-label">Log Type</label>
+                <select name="ltype" class="form-control">
+                  <option value="inbound">Inbound</option>
+                  <option value="outbound">Outbound</option>
+                    <!-- <option value=""></option> -->
+                    </select>
+              
+
+              <label for="psw"><b>Remarks</b></label>
+              <input type="text" placeholder="Enter Remarks" name="remark" required>
+
+              <!-- <label for="psw"><b>Start Time</b></label> -->
+              <input type="hidden" value="{{ datet }}" name="starttime" required>           
+
+              
+  
+              <a href=""></a><button type="submit" class="btn">Create</button>
+              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+          </div>
+  
+          <script>
+          function openForm() {
+            document.getElementById("myForm").style.display = "block";
+          }
+  
+          function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+          }
+          </script>
+  
+  <!-- call logs create form end-->
+      </div>
+    
+
+   
+      
+    </div>
+  </div>
+{% endblock content %}

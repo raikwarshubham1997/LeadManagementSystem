@@ -1,0 +1,145 @@
+{% extends 'comAdmin/dashboard.html' %}
+
+{% block content %}
+<style>
+  .warning {
+    margin: right;
+    border: 10px solid #DDDDDD;
+    /* border-top: none;
+    border-left: none;
+    border-right: none; */
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+table tr td{
+  padding: 6px;
+  width: 60%;
+
+}
+table tr td #bld{
+    font-weight: bold;
+}
+</style>
+<div id="page-wrapper">
+    <div id="page-inner">
+      <form class="form-inline my-2 my-lg-0" style="text-align: center;">
+        <input class="form-control mr-sm-5" name="q" type="search" placeholder="Search by, Lead name, Assigned to, status" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+        <div class="row">
+            <div class="col-md-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td><h1 class="page-head-line">Lead Information</h1></td>
+                  <td style="background-color: #DDDDDD;text-align:right;padding-right: 12px;"><a href="/superadmin/new_lead/"><button class="btn btn-primary">+ Create New Log</button></a></td>
+                  
+                </tr>
+              </table>
+                
+              
+            </div>
+        </div>
+        <!-- /. ROW  -->
+        
+        <div class="warning" style="background-color: #ffffff;padding: 20px;">
+            
+
+
+
+          <table>
+            <tr>
+                <td>
+                    <h4 style="text-align: center;"><b>Client Information</b></h4>
+                    <table border="1" width="100%">
+                      <tr>
+                          <td id="bld">Name</td>
+                          <td>{{ data.last_name }}, {{ i.first_name }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Gender</td>
+                          <td>{{ data.gender }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Birthday</td>
+                          <td>{{ data.birthday }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Contact#</td>
+                          <td>{{ data.contact }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Email</td>
+                          <td>{{ data.email }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Address</td>
+                          <td>{{ data.address }}</td>
+                      </tr>
+                    </table>
+          
+                    <h4 style="text-align: center;"><b>Lead Information</b></h4>
+                    <table border="1" width="100%">
+                      <tr>
+                          <td id="bld">Intrested In</td>
+                          <td>{{ data.intrested }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Lead Source</td>
+                          <td>{{ data.lead_sources }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Assigned To</td>
+                          <td>{{ data.assigned.last_name }}, {{ data.assigned.first_name }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Remarks</td>
+                          <td>{{ data.remarks }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Created By</td>
+                          <td>{{ data.email }}</td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Date Created</td>
+                          <td>
+                              {% if data.assigned_id == 1 %}
+                              Admin, Adminstrator
+                              {% elif data.assigned_id != 1 %}
+                              {{ i.first_name }} {{ i.last_name }} (Admin)
+                              {% endif %}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td id="bld">Status</td>
+                          <td><span style="background-color: #416cee;padding: 2px 15px 2px 15px;color: #ffffff;border-radius: 10px;">{{ data.status }}</span></td>
+                      </tr>
+                    </table>
+                </td>
+
+                <td style="margin-right: 10px;">
+                    <center>
+                    
+                   
+                    <button active class="btn btn" style="width:200px;background-color: #2a59e6;;color: #000000;border: 1px solid #e1e1e1;"><b><i class="fa fa-info " style="border: 1px solid #ffffff;border-radius: 100%;padding: 5px;"> </i> &nbsp;Information</b></button><br>
+                    <button class="btn btn" style="width:200px;background-color: #ffffff;border: 1px solid #e1e1e1;"><i class="fa fa-phone " style="border-radius: 100%;padding: 5px;"> </i> &nbsp;Call Logs</button><br>
+                    <button class="btn " style="width:200px;border: 1px solid #e1e1e1;background-color: #ffffff;"><i class="fa fa-sticky-note " style="border-radius: 100%;padding: 5px;"> </i> &nbsp;Note</button>
+                </center>
+
+          
+                </td>
+            </tr>
+          </table>
+       
+          
+      </div>
+    
+
+    </div>
+      
+    </div>
+{% endblock content %}

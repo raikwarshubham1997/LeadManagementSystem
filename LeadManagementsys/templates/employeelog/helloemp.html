@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lead Management System</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link href="{% static 'admindb/assets/css/bootstrap.css' %}" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="{% static 'admindb/assets/css/font-awesome.css' %}" rel="stylesheet" />
+       <!--CUSTOM BASIC STYLES-->
+    <link href="{% static 'admindb/assets/css/basic.css' %}" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="{% static 'admindb/assets/css/custom.css' %}" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+              
+                        <div class="user-img-div">
+                            <img src="{% static 'admindb/assets/img/lms-letter.jpg' %}" class="img-thumbnail" title="Homepage"/>
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="color: #ffffff;font-weight: bold;">LMS - Python</span>
+                        </div>
+
+                   
+            </div>
+
+            <div class="header-right">
+                <a href="/employees/" class="btn btn-danger" title="" style="color: #ffffff;"><i class="fa fa-user fa-1x"></i>  {{ username }}</a>
+
+                <!-- <a href="/logout/" class="btn btn-danger" title="Logout"><i class="fa fa-exclamation-circle fa-2x"></i></a> -->
+
+            </div>
+        </nav>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    
+
+
+                    <li>
+                        <a class="active-menu" href="/employees/index/"><i class="fa fa-dashboard "></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-desktop "></i>Your Pending Task <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/employees/addcompany/"><i class="fa fa-toggle-on"></i>Completed Task</a>
+                            </li>
+                            <li>
+                                <a href="/employees/showcompany/"><i class="fa fa-bell "></i></a>
+                            </li>
+                             
+                           
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-yelp "></i>Country<span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/employees/country/"><i class="fa fa-toggle-on"></i>Add Country</a>
+                            </li>
+                            <li>
+                                <a href="/employees/showcountry/"><i class="fa fa-bell "></i>Manage Country</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="#"><i class="fa fa-yelp "></i>State<span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/employees/state/"><i class="fa fa-toggle-on"></i>Add State</a>
+                            </li>
+                            <li>
+                                <a href="/employees/showstate/"><i class="fa fa-bell "></i>Manage State</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-bicycle "></i>City <span class="fa arrow"></span></a>
+                       <ul class="nav nav-second-level">
+                         
+                           <li>
+                              <a href="/employees/city/"><i class="fa fa-toggle-on"></i>Add City</a>
+                          </li>
+                           <li>
+                              <a href="/register_user/"><i class="fa fa-bell "></i>New Employee</a>
+                          </li>
+    
+                      </ul>
+                  </li>
+                   
+                     
+                      <li>
+                        <a href="/employees/get_all_lead/"><i class="fa fa-sliders "></i>Leads</a>
+                    </li>
+                     
+                    <li>
+                        <a href="/employees/client/"><i class="fa fa-circle-o "></i>Task Assign</a>
+                    </li>
+                    <li>
+                        <a href="/employees/get_users/"><i class="fa fa-user "></i>Users List</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-quote-right"></i>Settings</a>
+                    </li>
+                    <!-- <li>
+                        <a href="/employees/leadsignup/"><i class="fa fa-user "></i>New Adminstrator</a>
+                    </li> -->
+                
+                <li>
+                  <a href="/"><i class="fa fa-close "></i>Logout</a>
+              </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+
+{% block content %}
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line">Welcome to Leads Management System</h1>
+                     
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="main-box mb-pink card card-body" style="background-color: #ffffff;">
+
+                          <a href="#">                            
+                            <i style="text-align: center;color: antiquewhite;font-size: 30px;border: 1px solid;padding: 10px;border: none;background-color: #007BFF;" class="fa fa-th-list"></i> 
+                            <span style="padding-top: 0px;line-height: 20px">Total Task Pending</span>
+                          </a>
+                          <br>
+                          <span style="padding-left:80%;font-weight: bold;"></span>
+                      
+                      </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="main-box mb-pink card card-body" style="background-color: #ffffff;">
+                          <a href="#">                            
+                            <i style="text-align: center;background-color: #3CCFA2;color: antiquewhite;font-size: 30px;border: 1px solid;padding: 10px;border-top: none;border-left: none;border-bottom: none;" class="fa fa-sliders"></i> 
+                            <span style="padding-top: 0px;">Total Complete Task</span>
+                          </a>
+                          <br>
+                          <span style="padding-left:80%;font-weight: bold;">{{leds}}</span>
+                      </div>
+                    </div>     
+                  
+
+          
+                    <div class="col-md-3">
+                        
+                      <div class="main-box mb-pink card card-body" style="background-color: #ffffff;">
+                          <a href="#">                            
+                            <i style="text-align: center;background-color: #DF3973;color: antiquewhite;font-size: 30px;border: 1px solid;padding: 10px;border-top: none;border-left: none;border-bottom: none;" class="fa fa-circle-o "></i> 
+                            <span style="padding-top: 0px;">Total Opportunities</span>
+                          </a>
+                          <br>
+                          <span style="padding-left:80%;font-weight: bold;">{{count_saller}}7</span>
+                      </div>
+                      </div>
+                    
+                    <div class="col-md-3">
+                       
+                        <div class="main-box mb-pink card card-body" style="background-color: #ffffff;">
+                            <a href="#">                            
+                              <i style="text-align: center;color: antiquewhite;background-color: #007BFF;font-size: 30px;border: 1px solid;padding: 10px;border-top: none;border-left: none;border-bottom: none;" class="fa fa-group "></i> 
+                             
+                              <span style="padding-top: 0px;">System Users</span>
+                            </a>
+                            <br>
+                            <span style="padding-left:80%;font-weight: bold;"><b>{{users}}</b></span>
+                        </div>
+                    </div>
+                   
+                </div>
+           
+  </div>
+</div>
+  {% endblock content %}
+  
+    <div id="footer-sec">
+        &copy; 2022 TechPanda | Developed By : <a href="http://www.binarytheme.com/" target="_blank">Shubham Raikwar</a>
+    </div>
+    <!-- /. FOOTER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="{% static 'admindb/assets/js/jquery-1.10.2.js' %}"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="{% static 'admindb/assets/js/bootstrap.js' %}"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="{% static 'admindb/assets/js/jquery.metisMenu.js' %}"></script>
+       <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'admindb/assets/js/custom.js' %}"></script>
+    
+
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+{% extends 'comAdmin/dashboard.html' %}
+
+{% block content %}
+
+<style>
+table tr th{
+    background-color: #3c8df0;
+    color: #e1e1e1;
+    border: 1px solid #ffffff;
+    text-align: center;
+  }
+
+table tr td{
+  background-color: #ffffff;
+  border: 1px solid #e1e1e1;
+  text-align: center;
+}
+</style>
+<div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                       
+                              <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search by, Property name, amount, status" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                              </form>
+                           
+                {% if messages %}
+                  {% for message in messages %}
+                    <p style="background-color: #76e268;padding-left: 20px;">{{ message }}</p>
+                  {% endfor %}
+                {% endif %} 
+                        <table style="width: 100%;">
+                          <tr>
+                            <td style="text-align: justify;background-color: #DDDDDD;"><h1 class="page-head-line">List of System User</h1></td>
+                            <td style="background-color: #DDDDDD;text-align:right;padding-right: 12px;"><a href="/admins/manager/"><button class="btn btn-primary">+ Create New User</button></a></td>
+                          </tr>
+                        </table>
+                        
+                        
+                    </div>
+                </div>
+                       <table class="table" >
+                              <tr>
+                                  <th>S.No</th>
+                                  <th>Name</th>
+                                  
+                                  <th>User Type</th>
+                                  <th>Action</th>
+
+                              </tr>
+                          
+                              {% for i in my_users %}
+                              
+                              <tr>
+                                <td>{{forloop.counter}}</td>
+                                  <td>{{ i.first_name }} {{ i.last_name }}</td>
+                                  
+                                  
+                                  <td>
+                                    {% if i.is_staff == 1 %}
+                                    Staff
+                                    {% elif i.is_manager == 1 %}
+                                    Adminstrator
+                                    {% elif i.is_superuser == 1 %}
+                                    <b style="color: rgb(9, 173, 53);">Super Admin</b>
+                                  {% endif %}
+                                </td>
+                                  
+                                                          
+                                  <td>
+                                    
+                                    <a href="{% url 'view_detail' id=i.id %}"><i class="fa fa-eye" style="font-size:20px;color: #166ad1;"></i></a>
+                                       
+                              
+                                      </tr>
+                              
+                              {% endfor %}
+                              
+                          </table>
+                          <a href="/superadmin/get_users/"><input type="submit" value="go to Add New Property " class="btn btn-success"></a>
+                        
+                   </div>
+                  </div>
+                {% endblock content %}
+
+    
+
+
+
+
+

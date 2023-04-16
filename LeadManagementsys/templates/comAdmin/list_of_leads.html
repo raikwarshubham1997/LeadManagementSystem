@@ -1,0 +1,328 @@
+﻿{% extends 'comAdmin/dashboard.html' %}
+
+{% block content %}
+<style>
+  .warning {
+    border: 10px solid #DDDDDD;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.warning img {
+    width: 100%;
+}
+
+
+table tr td{
+  padding: 10px;
+  line-height: 10px;
+
+}
+/* table tr td b{
+  margin-left: 20px;
+
+} */
+
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: #444444;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.section-products:hover {
+    padding: 30px 0 54px;
+    
+}
+
+.section-products .header {
+    margin-bottom: 50px;
+}
+
+.section-products .header h3 {
+    font-size: 1rem;
+    color: #fe302f;
+    font-weight: 500;
+}
+
+.section-products .header h2 {
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #444444; 
+}
+
+.section-products .single-product {
+    margin-bottom: 26px;
+}
+
+.section-products .single-product .part-1 {
+    position: relative;
+    height: 290px;
+    max-height: 290px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.section-products .single-product .part-1::before {
+		position: absolute;
+		content: "";
+		top: 0;
+		left: 0;
+		width: 90%;
+		height: 100%;
+		z-index: -1;
+		transition: all 0.3s;
+}
+
+
+.section-products .single-product .part-1 .discount,
+.section-products .single-product .part-1 .new {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: #ffffff;
+    background-color: #fe302f;
+    padding: 2px 8px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.section-products .single-product .part-1 .new {
+    left: 0;
+    background-color: #ffffff;
+}
+
+.section-products .single-product .part-1 ul {
+    position: absolute;
+    bottom: -41px;
+    left: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    opacity: 0;
+    transition: bottom 0.5s, opacity 0.5s;
+}
+
+.section-products .single-product:hover .part-1 ul {
+    bottom: 30px;
+    opacity: 1;
+}
+
+.section-products .single-product .part-1 ul li {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.section-products .single-product .part-1 ul li a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #ffffff;
+    color: #444444;
+    text-align: center;
+    box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+    transition: color 0.2s;
+}
+
+.section-products .single-product .part-1 ul li a:hover {
+    color: #fe302f;
+}
+
+.section-products .single-product .part-2 .product-title {
+    font-size: 1rem;
+}
+
+.section-products .single-product .part-2 h4 {
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.section-products .single-product .part-2 .product-old-price {
+    position: relative;
+    padding: 0 7px;
+    margin-right: 2px;
+    opacity: 0.6;
+}
+
+.section-products .single-product .part-2 .product-old-price::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 90%;
+    height: 1px;
+    background-color: #ffffff;
+    transform: translateY(-50%);
+}
+.row {
+  margin-right: 90px;
+  margin-left: -37px;
+}
+
+
+</style>
+
+<div id="page-wrapper">
+    <div id="page-inner">
+     
+        <div class="row">
+            <div class="col-md-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td><h1 style="padding-left: 20px;color: #e24a4a;">List of Leads</h1></td>
+                  <td style="background-color: #DDDDDD;text-align:right;"><a href="/superadmin/new_lead/"><button class="btn btn-primary" style="font-weight:bold">+ Create New Lead</button></a></td>
+                  <td style="width: 150px;background-color: #DDDDDD;text-align:right;padding-right: 12px;"><a href="/superadmin/upload_file/"><button class="btn btn-warning" style="color: #000000;font-weight:bold">Upload Xlsx File</button></a></td>
+                  <td style="width: 150px;background-color: #DDDDDD;text-align:right;padding-right: 12px;"><a href="/superadmin/export_lead/"><button class="btn btn-success" style="color: #000000;font-weight:bold">Export Leads</button></a></td>
+                  <td style="width: 150px;background-color: #DDDDDD;text-align:right;padding-right: 12px;"><a href="/superadmin/demofile/"><button class="btn btn-danger" style="color: #000000;font-weight:bold">Demo Lead</button></a></td>
+                  <!-- <a href="/superadmin/export_lead/">Export all Leads</a> -->
+                </tr>
+              </table>
+              <hr>
+                
+              <div>
+                {% if messages %}
+                <p class="messagelist" style="font-weight: bold;border-radius: 10px;background-color: #ffffff;padding: 10px;font-size: 18px;color: rgb(44, 230, 19);">{% for message in messages %}{{ message }}{% endfor %}</p>
+                {% endif %}
+              </div>
+            </div>
+
+           
+            <section class="section-products">
+              
+              <div class="container col-md-12">
+                
+                      <!-- Single Product -->
+                      {% for i in all_lead %}
+                      <div id="secled" class="col-md-4 col-lg-4 col-xl-3">
+                          <div id="product-1" class="single-product">
+                            <div class="warning" style="background-color: #ffffff;">
+                              <div>
+                                <h4 style="color: rgb(20, 131, 216);"><b>{{ i.remarks }}</b></h4>
+                              </div>
+                              <table>
+                                <tr>
+                                  <td><b>Client</b>: </td>
+                                  <td>{{ i.first_name }} {{ i.last_name }}</td>
+                                  <!-- <td">Intrested In: &nbsp;&nbsp;&nbsp;<b>{{ i.intrested }}</b></td> -->
+                                </tr>
+                                <tr>
+                                  <!-- <td">Email: &nbsp;&nbsp;&nbsp;<b>{{ i.email }}</b></td> -->
+                                  <td><b>Assigned To</b>: </td>
+                                  <td>{{ i.assigned.last_name }}, {{ i.assigned.first_name }}</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Status</b>: </td>
+                                  <td><span style="background-color: #b1ff35;padding: 5px 10px 5px 10px;">{{ i.status }}</span></td>
+                                </tr>
+                                
+                              </table>
+                              
+                            <!-- <div style="text-align: justify;padding-left: 10px;color: #958d8d;">
+                              {% if i.assigned_id == 1 %}
+                              <p>Created By <b>Admin, Adminstrator</b> On Date {{ i.date_create }}</p>
+                              {% elif i.assigned_id != 1 %}
+                              <p>Created By <b>{{ i.first_name }} {{ i.last_name }}</b> On Date {{ i.date_create }}</p>
+                              {% endif %}
+                            </div> -->
+                              
+                              <div style="text-align:right;padding-top: 20px;">
+                                <a href="{% url 'show_leadinfo' id=i.id %}"><button class="btn btn-warning" style="width: px;"><i class="fa fa-eye "></i></button></a>
+                                <a href="{% url 'edit_leadinfo' id=i.id %}"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>
+                                <a href="{% url 'delete_leadinfo' id=i.id %}"><button class="btn btn-danger"><i class="fa fa-trash"></i></button> </a>                  
+                              </div>
+                          </div>
+                          </div>
+                      </div>
+                      {% endfor %}
+                     
+                  
+              </div>
+          </section>
+        </div>
+        <!-- /. ROW  -->
+     </div>   
+
+     <nav aria-label="...">
+      <ul class="pagination">
+        {% if all_lead.has_previous %}
+        <li class="page-item ">
+          <a class="page-link" href="/superadmin/get_all_lead/?page=1" tabindex="-1">First</a>
+        </li>
+        <li class="page-item ">
+          <a class="page-link" href="/superadmin/get_all_lead/?page={{ all_lead.previous_page_number }}" tabindex="-1">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for n in totalPagelist %}
+        <li class="page-item"><a class="page-link" href="/superadmin/get_all_lead/?page={{n}}">{{n}}</a></li>
+        {% endfor %}
+       
+     
+        {% if all_lead.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="/superadmin/get_all_lead/?page={{ lastpage }}">Last</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="/superadmin/get_all_lead/?page={{ all_lead.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    </div>
+
+    
+
+
+<!-- 
+        {% for i in all_lead %}
+        <div class="warning" style="background-color: #ffffff;padding: 5px;">
+          <div>
+            <h4><b>{{ i.remarks }}</b></h4>
+          </div>
+          <table>
+            <tr>
+              <td style="padding-left: 20px;">Client: </td>
+              <td><b>{{ i.first_name }} {{ i.last_name }}</b></td>
+             <td style="padding-left: 20px;">Intrested In: &nbsp;&nbsp;&nbsp;<b>{{ i.intrested }}</b></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;">Email: &nbsp;&nbsp;&nbsp;<b>{{ i.email }}</b></td> 
+              <td style="padding-left: 20px;">Assigned To: </td>
+              <td> <b>{{ i.assigned.last_name }}, {{ i.assigned.first_name }}</b></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;">Status: </td>
+              <td><b><span style="background-color: #b1ff35;padding: 5px 10px 5px 10px;">{{ i.status }}</span></b></td>
+            </tr>
+            
+          </table>
+          
+        <div style="text-align: justify;padding-left: 10px;color: #958d8d;">
+          {% if i.assigned_id == 1 %}
+          <p>Created By <b>Admin, Adminstrator</b> On Date {{ i.date_create }}</p>
+          {% elif i.assigned_id != 1 %}
+          <p>Created By <b>{{ i.first_name }} {{ i.last_name }}</b> On Date {{ i.date_create }}</p>
+          {% endif %}
+        </div>
+          <div style="text-align:right;padding-top: 20px;">
+            <a href="{% url 'show_leadinfo' id=i.id %}"><button class="btn btn-warning"><i class="fa fa-eye "></i></button></a>
+            <a href="{% url 'edit_leadinfo' id=i.id %}"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>
+            <a href="{% url 'delete_leadinfo' id=i.id %}"><button class="btn btn-danger"><i class="fa fa-trash"></i></button> </a>                  
+          </div>
+      </div>
+
+      {% endfor %} -->
+      
+    
+{% endblock content %}
